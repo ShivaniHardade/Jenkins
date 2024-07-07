@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/username/repository.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+        
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Pipeline succeeded! Deploy your application.'
+            // Add deployment steps here if needed
+        }
+        failure {
+            echo 'Pipeline failed :('
+            // Add notification or rollback steps here if needed
+        }
+    }
+}
