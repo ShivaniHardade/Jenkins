@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    echo 'Checking out the repository...'
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/ShivaniHardade/Jenkins.git']]])
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    echo 'Building the application...'
+                    // Add your build steps here, for example:
+                    // sh 'make build'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    echo 'Running tests...'
+                    // Add your test steps here, for example:
+                    // sh 'make test'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Deploying the application...'
+                    // Add your deploy steps here, for example:
+                    // sh 'make deploy'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                echo 'Cleaning up...'
+                // Add any cleanup steps here
+            }
+        }
+
+        success {
+            script {
+                echo 'Pipeline completed successfully!'
+            }
+        }
+
+        failure {
+            script {
+                echo 'Pipeline failed!'
+            }
+        }
+    }
+}
