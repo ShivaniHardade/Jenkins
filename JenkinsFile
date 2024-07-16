@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-tools {
+    tools {
         // Define JDK tool named 'jdk8' (you can use any name)
         jdk 'OpenJDK-21'
 
@@ -10,6 +10,12 @@ tools {
     }
 
     stages {
+        stage('Verify Workspace') {
+            steps {
+                // List contents of the workspace
+                bat 'dir'
+            }
+        }
         
         stage('Checkout Java Project') {
             steps {
