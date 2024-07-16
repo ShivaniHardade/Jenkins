@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Checkout Java Project') {
             steps {
-                git url: 'https://github.com/iluwatar/java-design-patterns.git', branch: 'main'
+                git url: 'https://github.com/spring-projects/spring-framework.git', branch: 'main'
             }
         }
         stage('Build') {
