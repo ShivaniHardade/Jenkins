@@ -1,65 +1,41 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    echo 'Checking out the repository...'
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/ShivaniHardade/Jenkins.git']]])
-                }
+                git 'https://github.com/iluwatar/java-design-patterns.git'
             }
         }
-
         stage('Build') {
             steps {
-                script {
-                    echo 'Building the application...'
-                    // Add your build steps here, for example:
-                    // sh 'make build'
-                }
+                sh 'mvn clean install'
             }
         }
-
         stage('Test') {
             steps {
-                script {
-                    echo 'Running tests...'
-                    // Add your test steps here, for example:
-                    // sh 'make test'
-                }
+                sh 'mvn test'
             }
         }
-
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
         stage('Deploy') {
             steps {
-                script {
-                    echo 'Deploying the application...'
-                    // Add your deploy steps here, for example:
-                    // sh 'make deploy'
-                }
+                // Example deployment step
+                // Adjust this section based on your deployment requirements
+                // sh 'scp target/your-artifact.jar user@server:/path/to/deploy'
+                echo 'Deployment step (to be customized based on your environment)'
             }
         }
     }
-
     post {
-        always {
-            script {
-                echo 'Cleaning up...'
-                // Add any cleanup steps here
-            }
-        }
-
         success {
-            script {
-                echo 'Pipeline completed successfully!'
-            }
+            echo 'Pipeline completed successfully!'
         }
-
         failure {
-            script {
-                echo 'Pipeline failed!'
-            }
+            echo 'Pipeline failed!'
         }
     }
 }
