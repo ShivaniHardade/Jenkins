@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+tools {
+        // Define Maven tool named 'M3' (you can use any name)
+        maven 'M3'
+    }
+
     stages {
         stage('Checkout Jenkinsfile Repo') {
             steps {
