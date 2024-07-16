@@ -10,11 +10,7 @@ tools {
     }
 
     stages {
-        stage('Checkout Jenkinsfile Repo') {
-            steps {
-                git branch: 'main', url: 'https://github.com/ShivaniHardade/Jenkins.git'
-            }
-        }
+        
         stage('Checkout Java Project') {
             steps {
                 git url: 'https://github.com/dropwizard/dropwizard.git', branch: 'main'
