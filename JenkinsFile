@@ -3,7 +3,7 @@ pipeline {
 
 tools {
         // Define Maven tool named 'M3' (you can use any name)
-        maven 'maven3'
+        maven 'M3'
     }
 
     stages {
