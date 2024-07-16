@@ -12,7 +12,7 @@ tools {
     stages {
         stage('Checkout Jenkinsfile Repo') {
             steps {
-                git url: 'https://github.com/ShivaniHardade/Jenkins.git', branch: 'main'
+                git branch: 'main', url: 'https://github.com/ShivaniHardade/Jenkins.git'
             }
         }
         stage('Checkout Java Project') {
