@@ -1,7 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stage('Checkout Jenkinsfile Repo') {
+            steps {
+                git 'https://github.com/your-username/jenkinsfile-repo.git'
+            }
+        }
+        stage('Checkout Java Project') {
             steps {
                 git 'https://github.com/iluwatar/java-design-patterns.git'
             }
