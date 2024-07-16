@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Checkout Jenkinsfile Repo') {
             steps {
-                git 'https://github.com/ShivaniHardade/Jenkins.git'
+                git url: 'https://github.com/ShivaniHardade/Jenkins.git', branch: 'main'
             }
         }
         stage('Checkout Java Project') {
             steps {
-                git 'https://github.com/iluwatar/java-design-patterns.git'
+                git url: 'https://github.com/iluwatar/java-design-patterns.git', branch: 'main'
             }
         }
         stage('Build') {
@@ -29,8 +29,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Example deployment step
-                // Adjust this section based on your deployment requirements
-                // sh 'scp target/your-artifact.jar user@server:/path/to/deploy'
                 echo 'Deployment step (to be customized based on your environment)'
             }
         }
