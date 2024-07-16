@@ -2,6 +2,9 @@ pipeline {
     agent any
 
 tools {
+        // Define JDK tool named 'jdk8' (you can use any name)
+        jdk 'OpenJDK-21'
+
         // Define Maven tool named 'M3' (you can use any name)
         maven 'M3'
     }
