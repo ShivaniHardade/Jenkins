@@ -12,14 +12,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Use Maven to build the Java project
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
         
         stage('Deploy') {
             steps {
                 // Example: Copy the built artifact (e.g., JAR file) to a deployment server
-                sh 'scp target/your-project.jar username@server:/path/to/deployment/directory'
+                bat 'scp target/your-project.jar username@server:/path/to/deployment/directory'
             }
         }
         
