@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        label 'windows'
+    }
+    
+   
     
     stages {
         stage('Checkout') {
@@ -11,29 +15,15 @@ pipeline {
         
         stage('Build') {
             steps {
-                // Build each submodule
-                dir('simple-sso-client') {
-                    bat 'mvn clean package'
-                }
-                dir('simple-sso-server') {
-                    bat 'mvn clean package'
-                }
-                dir('simple-sso-subsysa') {
-                    bat 'mvn clean package'
-                }
-                dir('simple-sso-subsysb') {
-                    bat 'mvn clean package'
-                }
+                // Build the Maven project
+                bat 'mvn clean package'
             }
         }
         
         stage('Deploy') {
             steps {
-                // Example: Copy built artifacts to deployment directories
-                bat 'xcopy /Y /I /E simple-sso-client\\target\\*.jar "C:\\deployments\\client\\"'
-                bat 'xcopy /Y /I /E simple-sso-server\\target\\*.jar "C:\\deployments\\server\\"'
-                bat 'xcopy /Y /I /E simple-sso-subsysa\\target\\*.jar "C:\\deployments\\subsysa\\"'
-                bat 'xcopy /Y /I /E simple-sso-subsysb\\target\\*.jar "C:\\deployments\\subsysb\\"'
+                // Example: Deploy the built artifact (assuming it's a JAR file) to a deployment directory
+                bat 'xcopy /Y /I /E target\\*.jar "C:\\path\\to\\deployment\\directory\\"'
             }
         }
     }
