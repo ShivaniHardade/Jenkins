@@ -18,12 +18,10 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                // Example: Copy the built artifact (e.g., JAR file) to a deployment server
-                bat 'scp target/your-project.jar username@server:/path/to/deployment/directory'
+                // Example: Copy the built artifact (e.g., JAR file) to a deployment directory
+                bat 'xcopy /Y /I target\\*.jar C:\\path\\to\\deployment\\directory\\'
             }
         }
-        
-        // Add more stages for testing, notifications, etc.
     }
     
     // Post-build actions
