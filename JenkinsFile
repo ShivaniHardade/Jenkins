@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    tools {
+        // Define JDK tool named 'jdk8' (you can use any name)
+        jdk 'OpenJDK-21'
+
+        // Define Maven tool named 'M3' (you can use any name)
+        maven 'M3'
+    }
+
+    stages {
+        stage('Verify Workspace') {
+            steps {
+                // List contents of the workspace
+                bat 'dir'
+            }
+        }
+        
+        stage('Checkout Java Project') {
+            steps {
+                git url: 'https://github.com/dropwizard/dropwizard.git', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat 'mvn clean install'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+        stage('Package') {
+            steps {
+                bat 'mvn package'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Example deployment step
+                echo 'Deployment step (to be customized based on your environment)'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
