@@ -1,55 +1,38 @@
 pipeline {
     agent any
-
-    tools {
-        // Define JDK tool named 'jdk8' (you can use any name)
-        jdk 'OpenJDK-21'
-
-        // Define Maven tool named 'M3' (you can use any name)
-        maven 'M3'
-    }
-
+    
     stages {
-        stage('Verify Workspace') {
+        stage('Checkout') {
             steps {
-                // List contents of the workspace
-                bat 'dir'
+                // Checkout the source code from Git repository
+                git 'https://github.com/ShivaniHardade/Jenkins.git'
             }
         }
         
-        stage('Checkout Java Project') {
-            steps {
-                git url: 'https://github.com/dropwizard/dropwizard.git', branch: 'main'
-            }
-        }
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                // Use Maven to build the Java project
+                sh 'mvn clean package'
             }
         }
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-        }
-        stage('Package') {
-            steps {
-                bat 'mvn package'
-            }
-        }
+        
         stage('Deploy') {
             steps {
-                // Example deployment step
-                echo 'Deployment step (to be customized based on your environment)'
+                // Example: Copy the built artifact (e.g., JAR file) to a deployment server
+                sh 'scp target/your-project.jar username@server:/path/to/deployment/directory'
             }
         }
+        
+        // Add more stages for testing, notifications, etc.
     }
+    
+    // Post-build actions
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Deployment successful!'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Deployment failed!'
         }
     }
 }
