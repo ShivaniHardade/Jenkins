@@ -26,7 +26,7 @@ pipeline {
     // Post-build actions
     post {
         success {
-            echo 'Build and Deployment successful!'
+            echo 'Build successful!'
         }
         failure {
             echo 'Build or Deployment failed!'
